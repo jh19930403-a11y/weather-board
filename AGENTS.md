@@ -15,6 +15,7 @@
 - style.css  : 디자인
 - logic.js   : 판단 규칙만 (화면을 다루는 코드 금지)
 - app.js     : 화면 동작 (목록 그리기, 일정 추가)
+- data/tasks.json : 기본 가상 일정 목록
 - PRD.md · AGENTS.md · CLAUDE.md · README.md : 문서
 
 ## 작업 방식
@@ -26,3 +27,5 @@
 - 가상 데이터만 사용한다. 실제 이름 · 연락처 · 기관 내부 자료를 넣지 않는다.
 - 사용자가 입력한 글자는 textContent 로 표시한다.
 - 비밀 키는 코드 · 채팅 · GitHub 에 넣지 않는다.
+- 기본 일정은 data/tasks.json에서 먼저 읽고, 화면에서 추가한 일정만 localStorage의 wx_added에 별도로 저장해 기본 일정 뒤에 합친다.
+- 더블클릭으로 열어 JSON을 읽지 못하면 화면에 '배포주소로열어주세요'를 표시한다.
