@@ -15,7 +15,9 @@
 - style.css  : 디자인
 - logic.js   : 판단 규칙만 (화면을 다루는 코드 금지)
 - app.js     : 화면 동작 (목록 그리기, 일정 추가)
-- data/tasks.json : 기본 가상 일정 목록
+- data/tasks.json : 이전 JSON 실습의 가상 일정 참고 자료 (현재 앱에서는 읽지 않음)
+- config.js : Supabase 주소와 공개용 키 두 줄
+- setup.sql : wx_tasks 표·제약·공개 조회 및 추가 정책·가상 일정 생성
 - PRD.md · AGENTS.md · CLAUDE.md · README.md : 문서
 
 ## 작업 방식
@@ -27,5 +29,8 @@
 - 가상 데이터만 사용한다. 실제 이름 · 연락처 · 기관 내부 자료를 넣지 않는다.
 - 사용자가 입력한 글자는 textContent 로 표시한다.
 - 비밀 키는 코드 · 채팅 · GitHub 에 넣지 않는다.
-- 기본 일정은 data/tasks.json에서 먼저 읽고, 화면에서 추가한 일정만 localStorage의 wx_added에 별도로 저장해 기본 일정 뒤에 합친다.
-- 더블클릭으로 열어 JSON을 읽지 못하면 화면에 '배포주소로열어주세요'를 표시한다.
+- 일정은 Supabase의 public.wx_tasks에서 읽고, 화면에서 추가한 일정도 같은 표에 저장한다. JSON과 localStorage는 일정 저장에 사용하지 않는다.
+- 연결 정보는 config.js의 주소·공개용 publishable 또는 anon 키 두 줄만 사용한다. secret·service_role 키는 절대 사용하지 않는다.
+- 외부 스크립트는 supabase-js 하나만 사용한다. 로그인은 추가하지 않고, RLS로 공개 조회·추가만 허용한다.
+- 지역은 세종·대전·태안·보령, 구분은 야외·고소·실내로 DB의 CHECK 제약에서도 제한한다.
+- setup.sql은 사용자가 SQL Editor에서 직접 실행한다. 기존 브라우저 일정을 자동으로 DB에 옮기지 않는다.
